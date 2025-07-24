@@ -1,10 +1,10 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-
+import Image from "next/image";
 const CoCreateSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.5 });
+  const isInView = useInView(ref, { amount: 0.2 });
 
   return (
     <>
@@ -34,7 +34,7 @@ const CoCreateSection = () => {
               />
 
               {/* Text Content */}
-              <div className="relative z-10 w-full h-full flex flex-col sm:flex-row justify-between items-center sm:items-start sm:text-left text-center px-4 sm:px-10 md:px-16 py-10 text-white font-bold text-lg sm:text-2xl md:text-4xl gap-y-10 sm:gap-y-0 pt-28">
+              <div className="relative z-10 w-full h-full flex flex-col sm:flex-row justify-between items-center sm:items-start sm:text-left text-center px-4 sm:px-10 md:px-16 py-10 text-white font-bold text-lg sm:text-2xl md:text-4xl gap-y-10 sm:gap-y-0 pt-40">
                 {/* Left Text - From Left */}
                 <motion.h2
                   initial={{ x: "-100%", opacity: 0 }}
@@ -62,6 +62,26 @@ const CoCreateSection = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <motion.div
+                          className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: isInView ? 1 : 0 }}
+                          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+                        >
+                          <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+                            Keep Scrolling
+                          </h3>
+                          <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                            <Image
+                              src="/DoubleDown.png"
+                              alt="Scroll down arrow"
+                              layout="fill"
+                              objectFit="contain"
+                              priority
+                            />
+                          </div>
+                        </motion.div>
       </section>
 
       <div className="h-[100vh]" />

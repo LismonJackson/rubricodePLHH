@@ -1,16 +1,17 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 const EarthSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { amount: 0.5 });
+  const inView = useInView(ref, { amount: 0.2 });
 
   return (
     <>
       {/* <div className="h-[100vh]" /> */}
 
-      <section ref={ref} className="relative w-full h-[100vh]  overflow-hidden">
+      <section ref={ref} className="relative w-full h-[100vh] overflow-hidden">
         {/* Fixed Inner Content Wrapper */}
         <motion.div
           className="fixed top-0 left-0 w-full h-[100vh] z-50"
@@ -57,6 +58,27 @@ const EarthSection = () => {
             <h1>The Earth is Alive.</h1>
             <h1>Every Garden is a Seed.</h1>
             <h1>Every seed is a promise.</h1>
+          </div>
+        </motion.div>
+
+        
+        <motion.div
+          className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: inView ? 1 : 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+        >
+          <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+            Keep Scrolling
+          </h3>
+          <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+            <Image
+              src="/DoubleDown.png"
+              alt="Scroll down arrow"
+              layout="fill"
+              objectFit="contain"
+              priority
+            />
           </div>
         </motion.div>
       </section>

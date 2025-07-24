@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-
+import Image from "next/image";
 const CTASection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { margin: "-30% 0px -30% 0px"});
@@ -104,6 +104,25 @@ const CTASection = () => {
           </motion.div>
         )}
       </AnimatePresence>
+           <motion.div
+                              className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: inView ? 1 : 0 }}
+                              transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+                            >
+                              <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+                                Keep Scrolling
+                              </h3>
+                              <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                                <Image
+                                  src="/DoubleDown.png"
+                                  alt="Scroll down arrow"
+                                  layout="fill"
+                                  objectFit="contain"
+                                  priority
+                                />
+                              </div>
+                            </motion.div>
     </section>
   );
 };

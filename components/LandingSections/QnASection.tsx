@@ -1,10 +1,11 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-
+import Image from "next/image";
 export default function QnASectionWithHeading() {
   const headingRef = useRef<HTMLDivElement>(null);
   const headingInView = useInView(headingRef, { amount: 0.5 });
+
 
   const contentRef = useRef<HTMLDivElement>(null);
   const contentInView = useInView(contentRef, { amount: 0.5 });
@@ -70,7 +71,7 @@ export default function QnASectionWithHeading() {
   );
 
   const renderGrid = () => (
-    <div className="relative z-10000 max-w-7xl mx-auto pb-20 pt-8 px-6">
+    <div className="relative z-10000 max-w-7xl mx-auto pb-20 pt-8 px-6 mt-20">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 justify-items-center">
         {sortedQAs.slice(0, 4).map(({ q, a }, idx) => (
           <motion.div
@@ -165,6 +166,25 @@ export default function QnASectionWithHeading() {
           </motion.section>
         )}
       </AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: headingInView ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+      >
+        <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+          Keep Scrolling
+        </h3>
+        <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+          <Image
+            src="/DoubleDown.png"
+            alt="Scroll down arrow"
+            layout="fill"
+            objectFit="contain"
+            priority
+          />
+        </div>
+      </motion.div>
     </div>
   );
 }
