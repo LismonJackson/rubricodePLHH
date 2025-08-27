@@ -2,6 +2,7 @@
 import { useRef } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import Image from "next/image"
+
 const DustParticles = ({ count = 8 }: { count?: number }) => {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-visible -z-10">
@@ -81,20 +82,25 @@ const FictionFunction = () => {
                 </h2>
               </motion.div>
 
-              {/* Image wrapper with links */}
+              {/* Video wrapper with links */}
               <div className="relative">
-                {/* Main Image */}
-                <motion.img
-                  src="/assets/images/landing/fiction.png"
-                  alt="Fiction is Function"
+                {/* Main Video */}
+                <motion.video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                   className="w-[360px] sm:w-[600px] md:w-[800px] h-auto object-contain"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-                />
+                >
+                  <source src="/assets/images/landing/fiction.mp4" type="video/mp4" />
+                  {/* <source src="/fiction.webm" type="video/webm" /> */}
+                </motion.video>
 
-                {/* Clockwise Animated Links with Dust Particles */}
+                {/* Clockwise Animated Links with Dust Particles - Now with floating animation */}
                 <motion.div
                   className="absolute top-7 left-[-10%]"
                   variants={linkVariants}
@@ -102,13 +108,21 @@ const FictionFunction = () => {
                   animate="visible"
                   custom={0.8}
                 >
-                  <div className="relative overflow-visible">
+                  <motion.div 
+                    className="relative overflow-visible"
+                    animate={{ y: [0, -15, 0] }}
+                    transition={{
+                      duration: 3,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                    }}
+                  >
                     {/* Radial glow background */}
                     <div className="absolute inset-0 -z-20 bg-gradient-radial from-yellow-300/40 via-amber-400/20 to-transparent rounded-full blur-lg scale-150" />
                     <DustParticles count={8} />
                     <motion.a
                       href="/guardians-of-infinity"
-                      className="relative z-10 text-base sm:text-lg md:text-xl font-bold transition-all duration-300 drop-shadow-lg"
+                      className="relative right-16 z-10 text-base sm:text-lg md:text-xl font-bold transition-all duration-300 drop-shadow-lg"
                       style={{
                         background:
                           "linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFFF00 75%, #FFD700 100%)",
@@ -139,7 +153,7 @@ const FictionFunction = () => {
                     >
                       Guardians of infinity
                     </motion.a>
-                  </div>
+                  </motion.div>
                 </motion.div>
 
                 <motion.div
@@ -149,7 +163,16 @@ const FictionFunction = () => {
                   animate="visible"
                   custom={1.1}
                 >
-                  <div className="relative overflow-visible">
+                  <motion.div 
+                    className="relative overflow-visible"
+                    animate={{ y: [0, -12, 0] }}
+                    transition={{
+                      duration: 3.5,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                      delay: 0.5,
+                    }}
+                  >
                     {/* Radial glow background */}
                     <div className="absolute inset-0 -z-20 bg-gradient-radial from-yellow-300/40 via-amber-400/20 to-transparent rounded-full blur-lg scale-150" />
                     <DustParticles count={8} />
@@ -187,7 +210,7 @@ const FictionFunction = () => {
                     >
                       Tokenomics
                     </motion.a>
-                  </div>
+                  </motion.div>
                 </motion.div>
 
                 <motion.div
@@ -197,7 +220,16 @@ const FictionFunction = () => {
                   animate="visible"
                   custom={1.4}
                 >
-                  <div className="relative overflow-visible">
+                  <motion.div 
+                    className="relative overflow-visible"
+                    animate={{ y: [0, 15, 0] }}
+                    transition={{
+                      duration: 4,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                      delay: 1,
+                    }}
+                  >
                     {/* Radial glow background */}
                     <div className="absolute inset-0 -z-20 bg-gradient-radial from-yellow-300/40 via-amber-400/20 to-transparent rounded-full blur-lg scale-150" />
                     <DustParticles count={8} />
@@ -235,7 +267,7 @@ const FictionFunction = () => {
                     >
                       DAO
                     </motion.a>
-                  </div>
+                  </motion.div>
                 </motion.div>
 
                 <motion.div
@@ -245,7 +277,16 @@ const FictionFunction = () => {
                   animate="visible"
                   custom={1.7}
                 >
-                  <div className="relative overflow-visible">
+                  <motion.div 
+                    className="relative overflow-visible"
+                    animate={{ y: [0, 12, 0] }}
+                    transition={{
+                      duration: 3.2,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                      delay: 1.5,
+                    }}
+                  >
                     {/* Radial glow background */}
                     <div className="absolute inset-0 -z-20 bg-gradient-radial from-yellow-300/40 via-amber-400/20 to-transparent rounded-full blur-lg scale-150" />
                     <DustParticles count={8} />
@@ -283,18 +324,18 @@ const FictionFunction = () => {
                     >
                       Governance
                     </motion.a>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
- <motion.div
+        <motion.div
           className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: isInView ? 1 : 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+          transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
         >
           <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
             Keep Scrolling

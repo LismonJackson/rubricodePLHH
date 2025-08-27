@@ -5,7 +5,8 @@ import InfinityLoop from "../InfinityLoop";
 import PurchaseTokensButton from "@/components/PurchaseTokenButtons";
 import { DollarSign } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { useInView } from "framer-motion";
+import Image from "next/image";
 const presalePhases = [
   { id: "phase1", name: "Phase 1", price: 0.08, discount: "80%", status: "active" },
   { id: "phase2", name: "Phase 2", price: 0.12, discount: "70%", status: "upcoming" },
@@ -18,7 +19,8 @@ const presalePhases = [
 ];
 
 export default function MintingSection({ isMobile }: { isMobile: boolean }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { amount: 0.1 });
   const [amount, setAmount] = useState("");
   const [selectedPhase, setSelectedPhase] = useState(presalePhases[0]);
 
@@ -42,14 +44,14 @@ export default function MintingSection({ isMobile }: { isMobile: boolean }) {
   return (
     <section
       ref={ref}
-      className={`w-full ${isMobile ? "py-24 overflow-x-hidden" : "h-[200vh] snap-start relative"} bg-black text-white`}
+      className={`bg-transparent w-full ${isMobile ? "py-24 overflow-x-hidden" : " h-[200vh] snap-start relative"}  text-white`}
     >
       <div className={`${isMobile ? "" : "fixed inset-0 overflow-hidden"}`}>
         <motion.div
           style={{ opacity: animated(sectionOpacity, 1) }}
-          className={`w-full flex justify-center bg-black ${isMobile ? "relative pt-[100px]" : "h-screen"}`}
+          className={`w-full flex justify-center  ${isMobile ? "relative pt-[100px]" : "h-screen"}`}
         >
-          <div className="max-w-lg w-full px-4 flex flex-col items-center text-center">
+          <div className="max-w-lg w-full mt-52 px-4 flex flex-col items-center text-center">
             {/* Animated Infinity Loop */}
             <motion.div
               className=" z-0"
@@ -74,13 +76,13 @@ export default function MintingSection({ isMobile }: { isMobile: boolean }) {
 
             {/* Tabs Section */}
             <Tabs defaultValue="crypto" className="w-full mt-4">
-              <TabsList className="flex w-full justify-evenly p-2 rounded-lg bg-black/70 backdrop-blur-md">
+              <TabsList className="flex w-full justify-evenly p-2 rounded-lg /70 backdrop-blur-md">
                 <TabsTrigger value="crypto" className={tabTriggerClasses}>Cryptocurrency</TabsTrigger>
                 <TabsTrigger value="fiat" className={tabTriggerClasses}>Fiat Currency</TabsTrigger>
               </TabsList>
 
               <TabsContent value="crypto" className="mt-4 space-y-4">
-                <div className="w-full p-4 rounded-lg bg-black/70 backdrop-blur-md">
+                <div className="w-full p-4 rounded-lg /70 backdrop-blur-md">
                   <input
                     type="number"
                     inputMode="decimal"
@@ -94,7 +96,7 @@ export default function MintingSection({ isMobile }: { isMobile: boolean }) {
                   />
                 </div>
 
-                <div className="w-full p-4 rounded-lg bg-black/70 backdrop-blur-md flex flex-row items-center justify-between">
+                <div className="w-full p-4 rounded-lg /70 backdrop-blur-md flex flex-row items-center justify-between">
                   <p className="text-white text-lg md:text-xl font-semibold">
                     1 PLHH = <span className="text-[#a67c00]">$0.08</span>
                   </p>
@@ -110,8 +112,8 @@ export default function MintingSection({ isMobile }: { isMobile: boolean }) {
               </TabsContent>
 
               <TabsContent value="fiat" className="mt-4">
-                <div className="w-full flex flex-col items-center space-y-4  p-4 rounded-lg bg-black/70 backdrop-blur-md">
-                  <div className="rounded-lg w-full p-4 bg-black/70 backdrop-blur-md flex items-center justify-center">
+                <div className="w-full flex flex-col items-center space-y-4  p-4 rounded-lg /70 backdrop-blur-md">
+                  <div className="rounded-lg w-full p-4 /70 backdrop-blur-md flex items-center justify-center">
                     <span className="text-xl md:text-2xl font-semibold text-white">COMING SOON !!</span>
                   </div>
                   <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded-lg">

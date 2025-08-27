@@ -2,10 +2,11 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import { useRef } from "react"
 import InfinityLoop from "@/components/InfinityLoop"
-
+import Image from "next/image"
+import { useInView } from "framer-motion"
 export default function MotionSection({ isMobile }: { isMobile: boolean }) {
-  const ref = useRef(null)
-
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { amount: 0.1 });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
@@ -19,8 +20,8 @@ export default function MotionSection({ isMobile }: { isMobile: boolean }) {
   const initialY = 50
   const finalY = 0
 
-  // Always call hooks
-  const sectionOpacity = useTransform(smoothScrollYProgress, [0, 0.05, 0.85, 0.95], [0, 1, 1, 0])
+  // Adjusted to minimize gap - fade in immediately and hold longer before fading out
+  const sectionOpacity = useTransform(smoothScrollYProgress, [0, 0.02, 0.98, 1], [0, 1, 1, 0])
   const topText1Opacity = useTransform(smoothScrollYProgress, [0.1, 0.2], [0, 1])
   const topText1X = useTransform(smoothScrollYProgress, [0.1, 0.2], [300, 0])
   const topText1Y = useTransform(smoothScrollYProgress, [0.1, 0.2], [200, 0])
@@ -36,15 +37,15 @@ export default function MotionSection({ isMobile }: { isMobile: boolean }) {
   return (
     <section
       ref={ref}
-      className={`w-full ${
+      className={`bg-transparent w-full ${
         isMobile ? "py-24" : "h-[200vh] snap-start relative"
-      } bg-black text-white`}
+      }  text-white`}
     >
       <div className={`${isMobile ? "" : "fixed inset-0 overflow-hidden pt-40"}`}>
         <motion.div
           className={`${
             isMobile ? "relative pt-20" : "h-screen"
-          } w-full flex flex-col md:flex-row justify-center items-center px-4 md:px-8 bg-black`}
+          } w-full flex flex-col md:flex-row justify-center items-center px-4 md:px-8 `}
           style={{ opacity: animated(sectionOpacity, 1) }}
         >
           <div className="flex justify-center items-center flex-col max-w-2xl">
@@ -107,6 +108,25 @@ export default function MotionSection({ isMobile }: { isMobile: boolean }) {
           </div>
         </motion.div>
       </div>
+       <motion.div
+              className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isInView ? 1 : 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+            >
+              <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+                Keep Scrolling
+              </h3>
+              <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                <Image
+                  src="/DoubleDown.png"
+                  alt="Scroll down arrow"
+                  layout="fill"
+                  objectFit="contain"
+                  priority
+                />
+              </div>
+            </motion.div>
     </section>
   )
 }

@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, AnimatePresence, useInView, Variants } from "framer-motion";
 import InfinityLoop from "@/components/InfinityLoop";
-
+import Image from "next/image";
 export function GovernanceHero() {
   const sentinelRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sentinelRef, { amount: 0.5, once: false });
@@ -107,23 +107,28 @@ export function GovernanceHero() {
               ))}
             </motion.div>
 
-            {/* 4) Pulsing scroll hint */}
-            <motion.div
-              className="fixed bottom-10 z-40 w-full flex justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "reverse",
-                duration: 1,
-              }}
-            >
-              <span className="text-[#D4AF37]">↓ Scroll ↓</span>
-            </motion.div>
+
           </motion.section>
         )}
       </AnimatePresence>
+        <motion.div
+                          className="fixed inset-0 z-[50] flex flex-col items-center justify-end pb-10 text-white"
+                          animate={{ opacity: isInView ? 1 : 0 }}
+                          transition={{ duration: 0.8, ease: "easeInOut" }}
+                        >
+                          <h3 className="text-sm mb-2 uppercase tracking-wider">
+                            Keep Scrolling
+                          </h3>
+                          <div className="animate-bounce w-6 h-6 relative">
+                            <Image
+                              src="/DoubleDown.png"
+                              alt="Scroll down arrow"
+                              layout="fill"
+                              objectFit="contain"
+                              priority
+                            />
+                          </div>
+                        </motion.div>
     </>
   );
 }

@@ -3,10 +3,10 @@
 
 import React, { useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-
+import Image from "next/image";
 export function DaoHero() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { amount: 0.5 });
+  const isInView = useInView(ref, { amount: 0.1 });
 
   return (
     <>
@@ -65,6 +65,24 @@ export function DaoHero() {
 
       {/* spacer to allow scroll-away */}
       <div className="h-[100vh]" />
+      <motion.div
+        className="fixed inset-0 z-[50] flex flex-col items-center justify-end pb-10 text-white"
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      >
+        <h3 className="text-sm mb-2 uppercase tracking-wider">
+          Scroll for immersive experience
+        </h3>
+        <div className="animate-bounce w-6 h-6 relative">
+          <Image
+            src="/DoubleDown.png"
+            alt="Scroll down arrow"
+            layout="fill"
+            objectFit="contain"
+            priority
+          />
+        </div>
+      </motion.div>
     </>
   );
 }

@@ -106,7 +106,7 @@ const FoundationSection = () => {
           className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: isInView ? 1 : 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+          transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
         >
           <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
             Keep Scrolling

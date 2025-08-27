@@ -1,10 +1,12 @@
 "use client"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import InfinityLoopVertical from "@/components/InfinityLoopVertical"
+import Image from "next/image"
 
 export default function InfinityPhasesSection({ isMobile }: { isMobile: boolean }) {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { amount: 0.2 });
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -19,8 +21,8 @@ export default function InfinityPhasesSection({ isMobile }: { isMobile: boolean 
   const initialY = 50
   const finalY = 0
 
-  // Always call hooks
-  const sectionOpacity = useTransform(smoothScrollYProgress, [0, 0.05, 0.85, 0.95], [0, 1, 1, 0])
+  // Adjusted opacity to fade in earlier and fade out later - overlapping with adjacent sections
+  const sectionOpacity = useTransform(smoothScrollYProgress, [0, 0.02, 0.98, 1], [0, 1, 1, 0])
   const loopOpacity = useTransform(smoothScrollYProgress, [0.1, 0.3], [0, 1])
   const loopScale = useTransform(smoothScrollYProgress, [0.1, 0.3], [0.8, 1])
 
@@ -75,15 +77,15 @@ export default function InfinityPhasesSection({ isMobile }: { isMobile: boolean 
   return (
     <section
       ref={ref}
-      className={`w-full ${
+      className={`bg-transparent w-full ${
         isMobile ? "py-24" : "h-[200vh] snap-start relative"
-      } bg-black text-white font-[Montserrat] overflow-hidden`}
+      }  text-white font-[Montserrat] overflow-hidden`}
     >
       <div className={`${isMobile ? "" : "fixed inset-0 overflow-hidden"}`}>
         <motion.div
           className={`${
             isMobile ? "relative pt-20" : "h-screen"
-          } w-full flex justify-center items-center px-4 md:px-8 bg-black`}
+          } w-full flex justify-center items-center px-4 md:px-8 `}
           style={{ opacity: animated(sectionOpacity, 1) }}
         >
           <div
@@ -140,6 +142,27 @@ export default function InfinityPhasesSection({ isMobile }: { isMobile: boolean 
           </div>
         </motion.div>
       </div>
+      
+      {/* Scroll Indicator - Matching MintLanding.tsx exactly */}
+     <motion.div
+        className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+      >
+        <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg font-sans">
+          Keep Scrolling
+        </h3>
+        <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+          <Image
+            src="/DoubleDown.png"
+            alt="Scroll down arrow"
+            layout="fill"
+            objectFit="contain"
+            priority
+          />
+        </div>
+      </motion.div>
     </section>
   )
 }

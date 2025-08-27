@@ -2,9 +2,13 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import InfinityLoop from "../InfinityLoop";
-
+import { useInView } from "framer-motion";
+import Image from "next/image";
 export default function PhasePrices({ isMobile }: { isMobile: boolean }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { amount: 0.1 });
+
+
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -18,9 +22,10 @@ export default function PhasePrices({ isMobile }: { isMobile: boolean }) {
 
   const animated = (val: any, fallback: any) => (isMobile ? fallback : val);
 
+  // Adjusted to create smooth transitions with adjacent sections
   const contentOpacity = useTransform(
     smoothScrollYProgress,
-    [0, 0.05, 0.85, 0.95],
+    [0, 0.02, 0.98, 1],
     [0, 1, 1, 0]
   );
   const loopOpacity = useTransform(smoothScrollYProgress, [0.45, 0.55], [0, 1]);
@@ -46,7 +51,7 @@ export default function PhasePrices({ isMobile }: { isMobile: boolean }) {
   return (
     <section
       ref={ref}
-      className={`w-full ${
+      className={`bg-transparent w-full ${
         isMobile ? "py-24" : "h-[200vh] snap-start relative"
       } font-montserrat`}
     >
@@ -55,7 +60,7 @@ export default function PhasePrices({ isMobile }: { isMobile: boolean }) {
           style={{ opacity: animated(contentOpacity, 1) }}
           className={`${
             isMobile ? "relative pt-[80px]" : "h-full"
-          } w-full flex flex-col items-center justify-center bg-black px-4 pt-[150px]`}
+          } w-full flex flex-col items-center justify-center  px-4 pt-[150px]`}
         >
           {/* Wrap table and loop together */}
           <div className="relative w-full max-w-6xl flex justify-center items-center">
@@ -71,7 +76,7 @@ export default function PhasePrices({ isMobile }: { isMobile: boolean }) {
             </motion.div>
 
             {/* Table in foreground */}
-            <motion.table className="table-auto border-separate border-spacing-x-4 border-spacing-y-2 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-full z-10 relative bg-black/60 backdrop-blur-md rounded-xl overflow-hidden shadow-xl">
+            <motion.table className="table-auto border-separate border-spacing-x-4 border-spacing-y-2 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-full z-10 relative /60 backdrop-blur-md rounded-xl overflow-hidden shadow-xl">
               <thead>
                 <motion.tr
                   style={{
@@ -170,6 +175,25 @@ export default function PhasePrices({ isMobile }: { isMobile: boolean }) {
           </div>
         </motion.div>
       </div>
+           <motion.div
+              className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isInView ? 1 : 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+            >
+              <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg font-sans">
+                Keep Scrolling
+              </h3>
+              <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                <Image
+                  src="/DoubleDown.png"
+                  alt="Scroll down arrow"
+                  layout="fill"
+                  objectFit="contain"
+                  priority
+                />
+              </div>
+            </motion.div>
     </section>
   );
 }

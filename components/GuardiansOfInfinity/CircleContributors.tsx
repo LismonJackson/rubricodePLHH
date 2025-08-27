@@ -2,10 +2,10 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, AnimatePresence, Variants } from "framer-motion";
-
+import Image from "next/image";
 export default function CircleContributors() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { amount: 0.5 });
+  const isInView = useInView(ref, { amount: 0.0 });
 
   const containerVariants: Variants = {
     hidden: {},
@@ -41,22 +41,22 @@ export default function CircleContributors() {
 
   const contributors = [
     {
-      name: "Alice Smith",
+      name: "Tamim Ahmed",
       role: "Lead Designer",
-      location: "New York, USA",
+      location: "Islamabad, Pakistan",
       contribution: "Crafted the UI mockups and visual identity.",
     },
     {
-      name: "Ravi Patel",
-      role: "Frontend Developer",
-      location: "London, UK",
-      contribution: "Built the React components and Framer Motion animations.",
+      name: "Huzaifa Imran",
+      role: "Blockchain Developer",
+      location: "Islamabad, Pakistan",
+      contribution: "Built the smart contracts and blockchain integration.",
     },
     {
-      name: "Mei Chen",
-      role: "Content Strategist",
-      location: "Sydney, Australia",
-      contribution: "Authored the site copy and messaging framework.",
+      name: "Saoud Ahmed",
+      role: "Web Developer",
+      location: "Islamabad, Pakistan",
+      contribution: "Developed the frontend and user experience.",
     },
   ];
 
@@ -77,7 +77,7 @@ export default function CircleContributors() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
             />
 
             {/* Content Container */}
@@ -117,7 +117,7 @@ export default function CircleContributors() {
                   drop-shadow-lg
                 "
               >
-                “The builders behind the scenes.” Designers, developers,
+                "The builders behind the scenes." Designers, developers,
                 writers, strategists, creators – the ones who laid the stones,
                 wrote the code, shaped the vision.
               </motion.blockquote>
@@ -153,6 +153,26 @@ export default function CircleContributors() {
           </>
         )}
       </AnimatePresence>
+          {/* Scroll indicator */}
+              <motion.div
+                className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isInView ? 1 : 0 }}
+                transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+              >
+                <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+                  Keep Scrolling
+                </h3>
+                <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                  <Image
+                    src="/DoubleDown.png"
+                    alt="Scroll down arrow"
+                    layout="fill"
+                    objectFit="contain"
+                    priority
+                  />
+                </div>
+              </motion.div>
     </section>
   );
 }

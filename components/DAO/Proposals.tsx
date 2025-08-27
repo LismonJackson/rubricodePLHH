@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 import { Clock } from "lucide-react";
-
+import Image from "next/image";
 // Proposal type definition
 export type Proposal = {
   id: number;
@@ -308,6 +308,24 @@ export function DaoProposals() {
           </motion.section>
         )}
       </AnimatePresence>
+        <motion.div
+                          className="fixed inset-0 z-[50] flex flex-col items-center justify-end pb-10 text-white"
+                          animate={{ opacity: isInView ? 1 : 0 }}
+                          transition={{ duration: 0.8, ease: "easeInOut" }}
+                        >
+                          <h3 className="text-sm mb-2 uppercase tracking-wider">
+                            Keep Scrolling
+                          </h3>
+                          <div className="animate-bounce w-6 h-6 relative">
+                            <Image
+                              src="/DoubleDown.png"
+                              alt="Scroll down arrow"
+                              layout="fill"
+                              objectFit="contain"
+                              priority
+                            />
+                          </div>
+                        </motion.div>
     </>
   );
 }

@@ -13,7 +13,6 @@ const StakingDetails = () => {
 
   useEffect(() => {
     setIsInView(inView);
-    console.log("StakingDetails in view:", inView);
   }, [inView]);
 
   const tiers = [
@@ -31,7 +30,7 @@ const StakingDetails = () => {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
       },
     },
   };
@@ -42,7 +41,7 @@ const StakingDetails = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
       },
     },
   };
@@ -53,8 +52,8 @@ const StakingDetails = () => {
         ref={sectionRef}
         className="relative w-full h-screen overflow-hidden text-white pt-20"
       >
-        {/* 🖥️ Desktop layout */}
-        <div className="hidden md:flex fixed w-full px-10 top-1/2 transform -translate-y-1/2 flex-row justify-between items-start gap-10">
+        {/* Desktop layout */}
+        <div className="hidden md:flex fixed w-full px-12 top-1/2 transform -translate-y-1/2 flex-row justify-between items-start gap-12">
           {/* Left Text */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
@@ -63,11 +62,81 @@ const StakingDetails = () => {
               opacity: isInView ? 1 : 0,
             }}
             transition={{ duration: 1, delay: 0.1 }}
-            className="text-3xl font-semibold max-w-xl"
+            className="text-3xl lg:text-4xl font-bold max-w-xl"
           >
             <h2>
-              The deeper you root, the more you receive – <br /> not just in
-              tokens, but in influence, access, and alignment.
+              <span style={{
+                color: "rgba(255, 255, 255, 0.95)",
+                textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 0 30px rgba(255,215,0,0.2)",
+              }}>
+                The deeper you{" "}
+              </span>
+              <span style={{
+                color: "#FFD700",
+                textShadow: "0 0 30px rgba(255,215,0,0.6), 0 4px 15px rgba(0,0,0,0.9)",
+                fontWeight: 900,
+              }}>
+                root
+              </span>
+              <span style={{
+                color: "rgba(255, 255, 255, 0.95)",
+                textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 0 30px rgba(255,215,0,0.2)",
+              }}>
+                , the more you{" "}
+              </span>
+              <span style={{
+                color: "#FFD700",
+                textShadow: "0 0 30px rgba(255,215,0,0.6), 0 4px 15px rgba(0,0,0,0.9)",
+                fontWeight: 900,
+              }}>
+                receive
+              </span>
+              <span style={{
+                color: "rgba(255, 255, 255, 0.95)",
+                textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 0 30px rgba(255,215,0,0.2)",
+              }}>
+                {" "}–<br />
+                not just in tokens, but in{" "}
+              </span>
+              <span style={{
+                color: "#FFD700",
+                textShadow: "0 0 25px rgba(255,215,0,0.5), 0 3px 10px rgba(0,0,0,0.8)",
+                fontWeight: 700,
+              }}>
+                influence
+              </span>
+              <span style={{
+                color: "rgba(255, 255, 255, 0.95)",
+                textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 0 30px rgba(255,215,0,0.2)",
+              }}>
+                ,{" "}
+              </span>
+              <span style={{
+                color: "#FFD700",
+                textShadow: "0 0 25px rgba(255,215,0,0.5), 0 3px 10px rgba(0,0,0,0.8)",
+                fontWeight: 700,
+              }}>
+                access
+              </span>
+              <span style={{
+                color: "rgba(255, 255, 255, 0.95)",
+                textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 0 30px rgba(255,215,0,0.2)",
+              }}>
+                , and{" "}
+              </span>
+              <span style={{
+                color: "#FFD700",
+                textShadow: "0 0 25px rgba(255,215,0,0.5), 0 3px 10px rgba(0,0,0,0.8)",
+                fontWeight: 700,
+              }}>
+                alignment
+              </span>
+              <span style={{
+                color: "rgba(255, 255, 255, 0.95)",
+                textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 0 30px rgba(255,215,0,0.2)",
+              }}>
+                .
+              </span>
             </h2>
           </motion.div>
 
@@ -79,12 +148,115 @@ const StakingDetails = () => {
               opacity: isInView ? 1 : 0,
             }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="text-white w-full max-w-xl"
+            className="w-full max-w-xl"
           >
-            <div className="grid grid-cols-3 table-fixed w-full font-semibold text-yellow-500 mb-6 gap-x-4 text-base md:text-lg lg:text-xl">
-              <div className="break-words">Commitment</div>
-              <div className="break-words">Frequency</div>
-              <div className="break-words">APY</div>
+            <div className="grid grid-cols-3 table-fixed w-full font-bold mb-8 gap-x-6 text-xl lg:text-2xl">
+              <div style={{
+                color: "#FFD700",
+                textShadow: "0 0 25px rgba(255,215,0,0.5), 0 3px 10px rgba(0,0,0,0.8)",
+                fontWeight: 800,
+              }}>
+                Commitment
+              </div>
+              <div style={{
+                color: "#FFD700",
+                textShadow: "0 0 25px rgba(255,215,0,0.5), 0 3px 10px rgba(0,0,0,0.8)",
+                fontWeight: 800,
+              }}>
+                Frequency
+              </div>
+              <div style={{
+                color: "#FFD700",
+                textShadow: "0 0 25px rgba(255,215,0,0.5), 0 3px 10px rgba(0,0,0,0.8)",
+                fontWeight: 800,
+              }}>
+                APY
+              </div>
+            </div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              className="flex flex-col gap-y-5"
+            >
+              {tiers.map((tier, i) => (
+                <motion.div
+                  key={i}
+                  variants={rowVariants}
+                  className="grid grid-cols-3 table-fixed w-full gap-x-6 text-lg lg:text-xl"
+                  style={{
+                    color: "rgba(255, 255, 255, 0.9)",
+                    textShadow: "0 2px 10px rgba(0,0,0,0.8)",
+                  }}
+                >
+                  <div className="font-medium">{tier.years}</div>
+                  <div className="font-medium italic" style={{
+                    color: i === 7 ? "#FFD700" : "rgba(255, 255, 255, 0.9)",
+                    textShadow: i === 7 ? "0 0 20px rgba(255,215,0,0.5)" : "0 2px 10px rgba(0,0,0,0.8)",
+                  }}>
+                    {tier.frequency}
+                  </div>
+                  <div className="font-bold" style={{
+                    color: "#FFD700",
+                    textShadow: "0 0 15px rgba(255,215,0,0.4), 0 2px 8px rgba(0,0,0,0.8)",
+                  }}>
+                    {tier.apy}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Mobile layout */}
+        <div className="flex md:hidden flex-col gap-y-12 px-8 text-center pt-8">
+          {/* Top Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+            transition={{ duration: 0.8 }}
+            className="text-2xl font-bold"
+          >
+            <h2>
+              <span style={{ color: "rgba(255, 255, 255, 0.95)" }}>
+                The deeper you{" "}
+              </span>
+              <span style={{ color: "#FFD700", fontWeight: 900 }}>root</span>
+              <span style={{ color: "rgba(255, 255, 255, 0.95)" }}>
+                , the more you{" "}
+              </span>
+              <span style={{ color: "#FFD700", fontWeight: 900 }}>receive</span>
+              <span style={{ color: "rgba(255, 255, 255, 0.95)" }}>
+                {" "}–<br />
+                not just in tokens, but in{" "}
+              </span>
+              <span style={{ color: "#FFD700", fontWeight: 700 }}>influence</span>
+              <span style={{ color: "rgba(255, 255, 255, 0.95)" }}>, </span>
+              <span style={{ color: "#FFD700", fontWeight: 700 }}>access</span>
+              <span style={{ color: "rgba(255, 255, 255, 0.95)" }}>, and </span>
+              <span style={{ color: "#FFD700", fontWeight: 700 }}>alignment</span>
+              <span style={{ color: "rgba(255, 255, 255, 0.95)" }}>.</span>
+            </h2>
+          </motion.div>
+
+          {/* Table Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full"
+          >
+            <div className="grid grid-cols-3 table-fixed w-full font-bold mb-6 gap-x-3 text-base">
+              <div style={{ color: "#FFD700", fontWeight: 800 }}>
+                Commitment
+              </div>
+              <div style={{ color: "#FFD700", fontWeight: 800 }}>
+                Frequency
+              </div>
+              <div style={{ color: "#FFD700", fontWeight: 800 }}>
+                APY
+              </div>
             </div>
 
             <motion.div
@@ -97,60 +269,18 @@ const StakingDetails = () => {
                 <motion.div
                   key={i}
                   variants={rowVariants}
-                  className="grid grid-cols-3 table-fixed w-full gap-x-4 break-words text-base md:text-lg lg:text-xl"
+                  className="grid grid-cols-3 table-fixed w-full gap-x-3 text-sm sm:text-base"
+                  style={{ color: "rgba(255, 255, 255, 0.9)" }}
                 >
-                  <div>{tier.years}</div>
-                  <div>{tier.frequency}</div>
-                  <div>{tier.apy}</div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* 📱 Mobile layout */}
-        <div className="flex md:hidden flex-col gap-y-10 px-6 text-center">
-          {/* Top Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-            transition={{ duration: 0.8 }}
-            className="text-2xl font-semibold pt-4"
-          >
-            <h2>
-              The deeper you root, the more you receive – <br /> not just in
-              tokens, but in influence, access, and alignment.
-            </h2>
-          </motion.div>
-
-          {/* Table Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base w-full"
-          >
-            <div className="grid grid-cols-3 table-fixed w-full font-semibold text-yellow-500 mb-4 gap-x-2 text-sm sm:text-base">
-              <div className="break-words">Commitment</div>
-              <div className="break-words">Frequency</div>
-              <div className="break-words">APY</div>
-            </div>
-
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              className="flex flex-col gap-y-3"
-            >
-              {tiers.map((tier, i) => (
-                <motion.div
-                  key={i}
-                  variants={rowVariants}
-                  className="grid grid-cols-3 table-fixed w-full gap-x-2 break-words text-sm sm:text-base"
-                >
-                  <div>{tier.years}</div>
-                  <div>{tier.frequency}</div>
-                  <div>{tier.apy}</div>
+                  <div className="font-medium">{tier.years}</div>
+                  <div className="font-medium italic" style={{
+                    color: i === 7 ? "#FFD700" : "rgba(255, 255, 255, 0.9)",
+                  }}>
+                    {tier.frequency}
+                  </div>
+                  <div className="font-bold" style={{ color: "#FFD700" }}>
+                    {tier.apy}
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -159,7 +289,7 @@ const StakingDetails = () => {
       </section>
 
       {/* Spacer to allow scroll out */}
-      <div className="h-[50vh] "></div>
+      <div className="h-[50vh]"></div>
     </>
   );
 };

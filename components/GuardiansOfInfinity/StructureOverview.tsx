@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, AnimatePresence, Variants } from "framer-motion";
-
+import Image from "next/image";
 export default function StructureOverview() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { amount: 0.5, once: false });
@@ -93,7 +93,6 @@ export default function StructureOverview() {
                 className="text-4xl md:text-5xl font-bold drop-shadow-lg"
                 whileHover={{ scale: 1.05 }}
               >
-                THE TEAM –{" "}
                 <span className="text-[#FFE066]">GUARDIANS OF INFINITY</span>
               </motion.h3>
 
@@ -103,39 +102,91 @@ export default function StructureOverview() {
               >
                 Not a company. A{" "}
                 <span className="text-[#FFE066] font-semibold">
-                  constellation
+                  constellation of conscious creators
                 </span>
                 .
               </motion.p>
-
-              <motion.h4
-                variants={headerVariants}
-                className="text-3xl md:text-4xl font-semibold drop-shadow-lg"
-                whileHover={{ scale: 1.02 }}
-              >
-                STRUCTURE &amp; CONCEPT OVERVIEW
-              </motion.h4>
 
               <motion.p
                 variants={textVariants}
                 className="text-lg leading-relaxed text-gray-200"
               >
-                The Peace, Love & Harmony team is not about{" "}
-                <span className="text-[#FFE066] font-semibold">hierarchy</span>.
-                It’s about{" "}
-                <span className="text-[#FFE066] font-semibold">frequency</span>,{" "}
-                <span className="text-[#FFE066] font-semibold">purpose</span>,
-                and{" "}
-                <span className="text-[#FFE066] font-semibold">
-                  participation
-                </span>
-                . This is not a list of titles — it’s a living reflection of
-                those who dare to care.
+                PLHH is not structured by{" "}
+                <span className="text-[#FFE066] font-semibold">titles</span>,
+                but by{" "}
+                <span className="text-[#FFE066] font-semibold">trust</span>.
+              </motion.p>
+
+              <motion.p
+                variants={textVariants}
+                className="text-lg leading-relaxed text-gray-200"
+              >
+                Not led by{" "}
+                <span className="text-[#FFE066] font-semibold">roles</span>,
+                but by{" "}
+                <span className="text-[#FFE066] font-semibold">resonance</span>.
+              </motion.p>
+
+              <motion.p
+                variants={textVariants}
+                className="text-lg leading-relaxed text-gray-200"
+              >
+                Here, everyone contributes from their own{" "}
+                <span className="text-[#FFE066] font-semibold">genius</span>.
+              </motion.p>
+
+              <motion.p
+                variants={textVariants}
+                className="text-lg leading-relaxed text-gray-200"
+              >
+                We don't follow – we{" "}
+                <span className="text-[#FFE066] font-semibold">align</span>.
+                <br />
+                We don't manage – we{" "}
+                <span className="text-[#FFE066] font-semibold">harmonize</span>.
+              </motion.p>
+
+              <motion.p
+                variants={textVariants}
+                className="text-lg leading-relaxed text-gray-200"
+              >
+                This is not about who's in charge.
+                <br />
+                It's about what we're here to{" "}
+                <span className="text-[#FFE066] font-semibold">build</span>.
+              </motion.p>
+
+              <motion.p
+                variants={textVariants}
+                className="text-xl font-semibold text-gray-100 mt-4"
+              >
+                Together. As one. In{" "}
+                <span className="text-[#FFE066]">infinite possibility</span>.
               </motion.p>
             </motion.div>
           </motion.section>
         )}
       </AnimatePresence>
+          {/* Scroll indicator */}
+              <motion.div
+                className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isInView ? 1 : 0 }}
+                transition={{ duration: 0.1, ease: "easeInOut", delay: 0.1 }}
+              >
+                <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+                  Keep Scrolling
+                </h3>
+                <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                  <Image
+                    src="/DoubleDown.png"
+                    alt="Scroll down arrow"
+                    layout="fill"
+                    objectFit="contain"
+                    priority
+                  />
+                </div>
+              </motion.div>
     </div>
   );
 }

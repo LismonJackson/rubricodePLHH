@@ -10,10 +10,11 @@ import {
   useTransform,
   animate,
 } from "framer-motion";
+import Image from "next/image";
 
 export default function TotalSupply() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { amount: 0.5 });
+  const isInView = useInView(ref, { amount: 0.1 });
 
   // Motion value for count-up
   const count = useMotionValue(0);
@@ -95,10 +96,10 @@ export default function TotalSupply() {
               variants={titleVariants}
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-snug text-white drop-shadow-2xl max-w-3xl"
             >
-              TOKENOMICS – THE SACRED STRUCTURE OF
+              TOKENOMICS <br />THE SACRED STRUCTURE OF
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F9CD13] to-[#539241]">
-                PEACE, LOVE &amp; HARMONY
+                PLHH_Coin
               </span>
             </motion.h1>
 
@@ -139,8 +140,26 @@ export default function TotalSupply() {
         )}
       </AnimatePresence>
 
-      {/* Scroll spacer */}
-      {/* <div className="h-[100vh]" /> */}
+         {/* Scroll indicator */}
+                 <motion.div
+                   className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+                   initial={{ opacity: 0 }}
+                   animate={{ opacity: isInView ? 1 : 0 }}
+                   transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+                 >
+                   <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+                     Keep Scrolling
+                   </h3>
+                   <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                     <Image
+                       src="/DoubleDown.png"
+                       alt="Scroll down arrow"
+                       layout="fill"
+                       objectFit="contain"
+                       priority
+                     />
+                   </div>
+                 </motion.div>
     </section>
   );
 }

@@ -1,58 +1,113 @@
-"use client"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-import { useRef } from "react"
-import InfinityLoop from "@/components/InfinityLoop"
-
+"use client";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useInView,
+} from "framer-motion";
+import { useRef } from "react";
+import InfinityLoop from "@/components/InfinityLoop";
+import Image from "next/image";
 export default function MintLanding({ isMobile }: { isMobile: boolean }) {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { amount: 0.1 });
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
-  })
+  });
 
   const smoothScrollYProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-  })
+  });
 
-  const initialY = 50
-  const finalY = 0
+  const initialY = 50;
+  const finalY = 0;
 
-  // Always call hooks
-  const sectionOpacity = useTransform(smoothScrollYProgress, [0, 0.85, 0.95], [1, 1, 0])
-  const loopOpacity = useTransform(smoothScrollYProgress, [0.1, 0.2], [1, 1])
-  const loopScale = useTransform(smoothScrollYProgress, [0.1, 0.2], [1, 1])
-  const loopRotate = useTransform(smoothScrollYProgress, [0.8, 0.95], [0, 90])
-  const loopX = useTransform(smoothScrollYProgress, [0.8, 0.95], [0, -300])
-  const loopY = useTransform(smoothScrollYProgress, [0.8, 0.95], [0, 0])
+  // Always call hooks - Keep section visible throughout its scroll range
+  const sectionOpacity = useTransform(
+    smoothScrollYProgress,
+    [0, 0.02, 0.98, 1],
+    [1, 1, 1, 0]
+  );
+  const loopOpacity = useTransform(smoothScrollYProgress, [0.1, 0.2], [1, 1]);
+  const loopScale = useTransform(smoothScrollYProgress, [0.1, 0.2], [1, 1]);
+  const loopRotate = useTransform(smoothScrollYProgress, [0.8, 0.95], [0, 90]);
+  const loopX = useTransform(smoothScrollYProgress, [0.8, 0.95], [0, -300]);
+  const loopY = useTransform(smoothScrollYProgress, [0.8, 0.95], [0, 0]);
 
-  const topText1Opacity = useTransform(smoothScrollYProgress, [0.25, 0.35], [1, 1])
-  const topText1Y = useTransform(smoothScrollYProgress, [0.25, 0.35], [initialY, finalY])
+  const topText1Opacity = useTransform(
+    smoothScrollYProgress,
+    [0.25, 0.35],
+    [1, 1]
+  );
+  const topText1Y = useTransform(
+    smoothScrollYProgress,
+    [0.25, 0.35],
+    [initialY, finalY]
+  );
 
-  const topText2Opacity = useTransform(smoothScrollYProgress, [0.35, 0.45], [1, 1])
-  const topText2Y = useTransform(smoothScrollYProgress, [0.35, 0.45], [initialY, finalY])
+  const topText2Opacity = useTransform(
+    smoothScrollYProgress,
+    [0.35, 0.45],
+    [1, 1]
+  );
+  const topText2Y = useTransform(
+    smoothScrollYProgress,
+    [0.35, 0.45],
+    [initialY, finalY]
+  );
 
-  const leftTextOpacity = useTransform(smoothScrollYProgress, [0.45, 0.55], [1, 1])
-  const leftTextY = useTransform(smoothScrollYProgress, [0.45, 0.55], [initialY, finalY])
+  const leftTextOpacity = useTransform(
+    smoothScrollYProgress,
+    [0.45, 0.55],
+    [1, 1]
+  );
+  const leftTextY = useTransform(
+    smoothScrollYProgress,
+    [0.45, 0.55],
+    [initialY, finalY]
+  );
 
-  const rightTextOpacity = useTransform(smoothScrollYProgress, [0.55, 0.65], [1, 1])
-  const rightTextY = useTransform(smoothScrollYProgress, [0.55, 0.65], [initialY, finalY])
+  const rightTextOpacity = useTransform(
+    smoothScrollYProgress,
+    [0.55, 0.65],
+    [1, 1]
+  );
+  const rightTextY = useTransform(
+    smoothScrollYProgress,
+    [0.55, 0.65],
+    [initialY, finalY]
+  );
 
-  const bottomTextOpacity = useTransform(smoothScrollYProgress, [0.65, 0.75], [1, 1])
-  const bottomTextY = useTransform(smoothScrollYProgress, [0.65, 0.75], [initialY, finalY])
+  const bottomTextOpacity = useTransform(
+    smoothScrollYProgress,
+    [0.65, 0.75],
+    [1, 1]
+  );
+  const bottomTextY = useTransform(
+    smoothScrollYProgress,
+    [0.65, 0.75],
+    [initialY, finalY]
+  );
 
   // Helpers to provide fallback values on mobile
-  const animated = (val: any, fallback: any) => (isMobile ? fallback : val)
+  const animated = (val: any, fallback: any) => (isMobile ? fallback : val);
 
   return (
     <section
       ref={ref}
-      className={`w-full ${
+      className={`bg-transparent w-full ${
         isMobile ? "py-24" : "h-[200vh] snap-start relative"
-      } bg-black text-white no-scrollbar`}
+      }  text-white no-scrollbar`}
     >
-      <div className={`${isMobile ? "" : "fixed inset-0 overflow-hidden pt-[80px]"} w-full h-full`}> 
+      <div
+        className={`${
+          isMobile ? "" : "fixed inset-0 overflow-hidden pt-[80px]"
+        } w-full h-full`}
+      >
         <motion.div
           style={{ opacity: animated(sectionOpacity, 1) }}
           className="w-full h-full max-w-screen-xl mx-auto grid grid-rows-3 grid-cols-3 gap-x-16 md:gap-x-32 lg:gap-x-48 relative"
@@ -66,7 +121,8 @@ export default function MintLanding({ isMobile }: { isMobile: boolean }) {
                 y: animated(topText1Y, 0),
               }}
             >
-              This is not just a <span className="text-yellow-500">Minting Model</span>.
+              This is not just a{" "}
+              <span className="text-yellow-500">Minting Model</span>.
             </motion.h2>
             <motion.h2
               className="text-base sm:text-lg md:text-lg lg:text-2xl xl:text-3xl font-bold mt-2 font-[Montserrat]"
@@ -75,7 +131,8 @@ export default function MintLanding({ isMobile }: { isMobile: boolean }) {
                 y: animated(topText2Y, 0),
               }}
             >
-              This is an <span className="text-yellow-500 drop-shadow-lg">energetic</span>{" "}
+              This is an{" "}
+              <span className="text-yellow-500 drop-shadow-lg">energetic</span>{" "}
               <span className="text-white">sequence.</span>
             </motion.h2>
           </div>
@@ -144,6 +201,25 @@ export default function MintLanding({ isMobile }: { isMobile: boolean }) {
           </motion.div>
         </motion.div>
       </div>
+      <motion.div
+        className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+      >
+        <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+          Keep Scrolling
+        </h3>
+        <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+          <Image
+            src="/DoubleDown.png"
+            alt="Scroll down arrow"
+            layout="fill"
+            objectFit="contain"
+            priority
+          />
+        </div>
+      </motion.div>
     </section>
-  )
+  );
 }

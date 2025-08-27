@@ -140,19 +140,7 @@ export function GovernanceCTA() {
               </motion.div>
             </motion.div>
 
-            <motion.div
-              className="fixed bottom-10 z-40 w-full flex justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "reverse",
-                duration: 1,
-              }}
-            >
-              <span className="text-[#D4AF37]">↓ Scroll ↓</span>
-            </motion.div>
+
           </motion.section>
         )}
       </AnimatePresence>

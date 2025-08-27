@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView, AnimatePresence, Variants } from "framer-motion";
 import InfinityLoop from "@/components/InfinityLoop";
-
+import Image from "next/image";
 const listContainer: Variants = {
   hidden: {},
   visible: {
@@ -49,7 +49,7 @@ export default function RegenerativeCircle() {
               className="fixed inset-0 bg-black text-white z-50 flex flex-col items-center justify-center px-6 overflow-hidden"
             >
               {/* Background loop */}
-              <div className="w-[800px] h-[400px] relative -mt-32">
+              <div className="w-[800px] h-[400px] relative -mt-32 mb-10">
                 <InfinityLoop />
               </div>
 
@@ -109,6 +109,25 @@ export default function RegenerativeCircle() {
             </motion.div>
           )}
         </AnimatePresence>
+                 <motion.div
+                                      className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: isInView ? 1 : 0 }}
+                                      transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+                                    >
+                                      <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg">
+                                        Keep Scrolling
+                                      </h3>
+                                      <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                                        <Image
+                                          src="/DoubleDown.png"
+                                          alt="Scroll down arrow"
+                                          layout="fill"
+                                          objectFit="contain"
+                                          priority
+                                        />
+                                      </div>
+                                    </motion.div>
       </section>
     </>
   );

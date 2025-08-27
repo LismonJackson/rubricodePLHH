@@ -3,7 +3,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-
+import Image from "next/image";
 // All six allocations, in display order
 const distribution = [
   {
@@ -51,7 +51,7 @@ export default function TokenomicsDistribution() {
     useRef<HTMLElement>(null),
     useRef<HTMLElement>(null),
   ];
-  const inViews = refs.map((ref) => useInView(ref, { amount: 0.5 }));
+  const inViews = refs.map((ref) => useInView(ref, { amount: 0.1 }));
 
   // split into 3 sections of 2 items each
   const sections = [
@@ -145,6 +145,35 @@ export default function TokenomicsDistribution() {
                 </motion.div>
               )}
             </AnimatePresence>
+            <motion.div
+              className="fixed inset-0 z-[60] flex flex-col items-center justify-end pb-10 text-white pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: inView ? 1 : 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut", delay: 0.2 }}
+            >
+              {/* Blur background */}
+              <div
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-32 -z-10"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, transparent 70%)",
+                  filter: "blur(5px)",
+                }}
+              />
+
+              <h3 className="text-sm mb-2 uppercase tracking-wider font-medium drop-shadow-lg relative">
+                Keep Scrolling
+              </h3>
+              <div className="animate-bounce w-6 h-6 relative drop-shadow-lg">
+                <Image
+                  src="/DoubleDown.png"
+                  alt="Scroll down arrow"
+                  layout="fill"
+                  objectFit="contain"
+                  priority
+                />
+              </div>
+            </motion.div>
           </section>
         );
       })}

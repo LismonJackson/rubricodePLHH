@@ -270,43 +270,191 @@ const StakingInterface: React.FC = () => {
       };
 
   const content = (
-    <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 px-4">
-      {/* Left: Form */}
-      <div className="backdrop-blur-sm p-6 rounded-lg bg-black/40">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2 text-amber-400">Stake your Tokens</h2>
-        <p className="text-amber-200/70 mb-6">Choose duration and amount to start earning rewards</p>
+    <div className="w-full max-w-6xl mx-auto px-4">
+      {/* Main Form Container */}
+      <div className="backdrop-blur-md p-8 rounded-2xl bg-black/60 border border-[#FFD700]/20 shadow-2xl"
+           style={{
+             boxShadow: "0 0 50px rgba(255,215,0,0.1), 0 20px 40px rgba(0,0,0,0.5)",
+           }}>
+        
+        {/* Header */}
+        <h2 className="text-3xl md:text-4xl font-bold mb-3"
+            style={{
+              background: "linear-gradient(135deg, #FFD700 0%, #FFE55C 50%, #FFD700 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              textShadow: "0 0 40px rgba(255,215,0,0.5)",
+              filter: "drop-shadow(0 4px 20px rgba(255,215,0,0.3))",
+            }}>
+          Stake Your Tokens
+        </h2>
+        <p className="text-white/70 mb-8 text-lg">Choose duration and amount to start earning rewards</p>
 
-        <div className="mb-4 p-2 bg-amber-900/20 rounded-md">
-          <p className="text-amber-300">Your PLHH Balance: <span className="font-bold">{plhhBalance} PLHH</span></p>
+        {/* Balance Display */}
+        <div className="mb-8 p-4 rounded-lg border border-[#FFD700]/30"
+             style={{
+               background: "linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05))",
+             }}>
+          <p className="text-lg">
+            <span style={{ color: "rgba(255,255,255,0.8)" }}>Your PLHH Balance: </span>
+            <span style={{
+              color: "#FFD700",
+              fontWeight: 700,
+              fontSize: "1.25rem",
+              textShadow: "0 0 20px rgba(255,215,0,0.5)",
+            }}>
+              {plhhBalance} PLHH
+            </span>
+          </p>
         </div>
 
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-lg md:text-xl font-medium text-amber-300">Staking Duration</h3>
-            <span className="text-amber-400 font-bold">{stakingDuration} {stakingDuration === 1 ? 'Year' : 'Years'} ({apyPercent}% APY)</span>
+        {/* Staking Duration Slider */}
+        <div className="mb-10">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl md:text-2xl font-semibold"
+                style={{
+                  color: "#FFD700",
+                  textShadow: "0 0 25px rgba(255,215,0,0.4)",
+                }}>
+              Staking Duration
+            </h3>
+            <span className="text-xl font-bold px-4 py-2 rounded-lg"
+                  style={{
+                    background: "rgba(255,215,0,0.1)",
+                    border: "1px solid rgba(255,215,0,0.3)",
+                    color: "#FFD700",
+                    textShadow: "0 0 15px rgba(255,215,0,0.5)",
+                  }}>
+              {stakingDuration} {stakingDuration === 1 ? 'Year' : 'Years'} ({apyPercent}% APY)
+            </span>
           </div>
-          <Slider defaultValue={[stakingDuration]} min={1} max={8} step={1} onValueChange={v => setStakingDuration(v[0])} />
+          <Slider 
+            defaultValue={[stakingDuration]} 
+            min={1} 
+            max={8} 
+            step={1} 
+            onValueChange={v => setStakingDuration(v[0])}
+            className="[&_[role=slider]]:bg-[#FFD700] [&_[role=slider]]:border-[#FFD700] [&_.range]:bg-[#FFD700]"
+          />
         </div>
 
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-lg md:text-xl font-medium text-amber-300">Amount to Stake</h3>
-            <span className="text-amber-400 font-bold">{stakingAmount.toFixed(2)} PLHH</span>
+        {/* Amount to Stake Slider */}
+        <div className="mb-10">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl md:text-2xl font-semibold"
+                style={{
+                  color: "#FFD700",
+                  textShadow: "0 0 25px rgba(255,215,0,0.4)",
+                }}>
+              Amount to Stake
+            </h3>
+            <span className="text-xl font-bold px-4 py-2 rounded-lg"
+                  style={{
+                    background: "rgba(255,215,0,0.1)",
+                    border: "1px solid rgba(255,215,0,0.3)",
+                    color: "#FFD700",
+                    textShadow: "0 0 15px rgba(255,215,0,0.5)",
+                  }}>
+              {stakingAmount.toFixed(2)} PLHH
+            </span>
           </div>
-          <Slider defaultValue={[stakingAmount]} min={0.1} max={10} step={0.01} onValueChange={v => setStakingAmount(v[0])} />
-          <div className="mt-2 flex justify-end">
-            <button onClick={() => setStakingAmount(Number(plhhBalance))} className="text-xs text-amber-400 hover:text-amber-300">Max</button>
+          <Slider 
+            defaultValue={[stakingAmount]} 
+            min={0.1} 
+            max={10} 
+            step={0.01} 
+            onValueChange={v => setStakingAmount(v[0])}
+            className="[&_[role=slider]]:bg-[#FFD700] [&_[role=slider]]:border-[#FFD700] [&_.range]:bg-[#FFD700]"
+          />
+          <div className="mt-3 flex justify-end">
+            <button 
+              onClick={() => setStakingAmount(Number(plhhBalance))} 
+              className="text-sm font-semibold px-3 py-1 rounded transition-all duration-300"
+              style={{
+                color: "#FFD700",
+                border: "1px solid rgba(255,215,0,0.3)",
+                background: "rgba(255,215,0,0.05)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,215,0,0.2)";
+                e.currentTarget.style.boxShadow = "0 0 20px rgba(255,215,0,0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(255,215,0,0.05)";
+                e.currentTarget.style.boxShadow = "none";
+              }}>
+              MAX
+            </button>
           </div>
         </div>
 
-        <div className="space-y-3 mb-6">
-          <div className="flex justify-between"><span className="text-white font-medium">APY</span><span className="text-amber-400 font-bold">{apyPercent}%</span></div>
-          <div className="flex justify-between"><span className="text-white font-medium">Total Rewards</span><span className="text-amber-400 font-bold">+{expectedReward.toFixed(2)} PLHH</span></div>
-          <div className="flex justify-between"><span className="text-white font-medium">Lock Period</span><span className="text-amber-400 font-bold">{stakingDuration} {stakingDuration===1?'Year':'Years'}</span></div>
+        {/* Summary Stats */}
+        <div className="space-y-4 mb-8 p-6 rounded-lg"
+             style={{
+               background: "rgba(0,0,0,0.3)",
+               border: "1px solid rgba(255,215,0,0.2)",
+             }}>
+          <div className="flex justify-between text-lg">
+            <span style={{ color: "rgba(255,255,255,0.8)" }}>APY Rate</span>
+            <span style={{
+              color: "#FFD700",
+              fontWeight: 700,
+              textShadow: "0 0 15px rgba(255,215,0,0.4)",
+            }}>
+              {apyPercent}%
+            </span>
+          </div>
+          <div className="flex justify-between text-lg">
+            <span style={{ color: "rgba(255,255,255,0.8)" }}>Expected Rewards</span>
+            <span style={{
+              color: "#FFD700",
+              fontWeight: 700,
+              textShadow: "0 0 15px rgba(255,215,0,0.4)",
+            }}>
+              +{expectedReward.toFixed(2)} PLHH
+            </span>
+          </div>
+          <div className="flex justify-between text-lg">
+            <span style={{ color: "rgba(255,255,255,0.8)" }}>Lock Period</span>
+            <span style={{
+              color: "#FFD700",
+              fontWeight: 700,
+              textShadow: "0 0 15px rgba(255,215,0,0.4)",
+            }}>
+              {stakingDuration} {stakingDuration===1?'Year':'Years'}
+            </span>
+          </div>
         </div>
 
-        <Button onClick={handleApproveContract} disabled={!wallet.connected} className="w-full bg-gradient-to-r from-amber-600 to-yellow-500 text-amber-950 font-bold py-6 h-12">
-          {wallet.connected ? 'Stake Now' : 'Connect Wallet to Stake'}
+        {/* Stake Button */}
+        <Button 
+          onClick={handleApproveContract} 
+          disabled={!wallet.connected} 
+          className="w-full h-14 text-lg font-bold transition-all duration-300"
+          style={{
+            background: wallet.connected 
+              ? "linear-gradient(135deg, #FFD700, #FFA500)" 
+              : "linear-gradient(135deg, #666, #444)",
+            color: wallet.connected ? "#000" : "#999",
+            border: "2px solid transparent",
+            boxShadow: wallet.connected 
+              ? "0 0 30px rgba(255,215,0,0.4), 0 10px 20px rgba(0,0,0,0.3)" 
+              : "none",
+          }}
+          onMouseEnter={(e) => {
+            if (wallet.connected) {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 0 40px rgba(255,215,0,0.6), 0 15px 30px rgba(0,0,0,0.4)";
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = wallet.connected 
+              ? "0 0 30px rgba(255,215,0,0.4), 0 10px 20px rgba(0,0,0,0.3)" 
+              : "none";
+          }}>
+          {wallet.connected ? 'STAKE NOW' : 'Connect Wallet to Stake'}
         </Button>
       </div>
     </div>
@@ -314,7 +462,7 @@ const StakingInterface: React.FC = () => {
 
   return (
     <>
-      <ToastContainer position="top-right" />
+      <ToastContainer position="top-right" theme="dark" />
       <div ref={sectionRef} className="h-[150vh] w-full relative z-10" />
       <AnimatePresence>
         {isMobile ? (
@@ -324,19 +472,99 @@ const StakingInterface: React.FC = () => {
         )}
       </AnimatePresence>
 
+      {/* Confirmation Modal */}
       {showConfirmation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4">
-          <div className="max-w-md w-full mx-4">
-            <div className="bg-gradient-to-b from-black to-amber-950/50 border-2 border-yellow-500 rounded-lg shadow-lg overflow-hidden">
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-white text-center mb-3">Confirm Staking</h3>
-                <p className="text-center text-amber-100 mb-6">You are about to stake {stakingAmount.toFixed(2)} PLHH tokens for {stakingDuration} {stakingDuration===1?'year':'years'}</p>
-                <div className="space-y-3 mb-6"><div className="flex justify-between"><span className="text-white font-medium">APY Rate</span><span className="text-amber-400 font-bold">{apyPercent}%</span></div><div className="flex justify-between"><span className="text-white font-medium">Expected Rewards</span><span className="text-amber-400 font-bold">+{expectedReward.toFixed(2)} PLHH</span></div></div>
-                <div className="bg-red-900/20 border border-red-500/30 text-red-300 p-3 rounded-md flex items-start mb-6"><AlertCircle className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0"/><p className="text-sm">Early withdrawal will incur penalties ranging from 20-40% of rewards depending on how early you withdraw.</p></div>
-                <div className="flex gap-3 justify-center"><Button onClick={handleCancelStaking} variant="outline" className="flex-1 bg-transparent text-amber-300 border-amber-500/50 hover:bg-amber-950/30">Cancel</Button><Button onClick={handleConfirmStaking} disabled={isProcessing} className="flex-1 bg-gradient-to-r from-amber-600 to-yellow-500 text-amber-950 font-bold flex items-center justify-center">{isProcessing?(<><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Processing...</>):"Confirm Staking"}</Button></div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="max-w-md w-full"
+          >
+            <div className="rounded-2xl shadow-2xl overflow-hidden"
+                 style={{
+                   background: "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(33,33,33,0.95))",
+                   border: "2px solid rgba(255,215,0,0.3)",
+                   boxShadow: "0 0 50px rgba(255,215,0,0.2), 0 20px 40px rgba(0,0,0,0.5)",
+                 }}>
+              <div className="p-8">
+                <h3 className="text-3xl font-bold text-center mb-4"
+                    style={{
+                      background: "linear-gradient(135deg, #FFD700, #FFE55C)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                      filter: "drop-shadow(0 2px 10px rgba(255,215,0,0.3))",
+                    }}>
+                  Confirm Staking
+                </h3>
+                
+                <p className="text-center text-white/80 mb-8 text-lg">
+                  You are about to stake{" "}
+                  <span style={{ color: "#FFD700", fontWeight: 700 }}>{stakingAmount.toFixed(2)} PLHH</span>
+                  {" "}for{" "}
+                  <span style={{ color: "#FFD700", fontWeight: 700 }}>{stakingDuration} {stakingDuration===1?'year':'years'}</span>
+                </p>
+                
+                <div className="space-y-4 mb-8 p-4 rounded-lg"
+                     style={{ background: "rgba(255,215,0,0.05)", border: "1px solid rgba(255,215,0,0.2)" }}>
+                  <div className="flex justify-between">
+                    <span style={{ color: "rgba(255,255,255,0.8)" }}>APY Rate</span>
+                    <span style={{ color: "#FFD700", fontWeight: 700 }}>{apyPercent}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span style={{ color: "rgba(255,255,255,0.8)" }}>Expected Rewards</span>
+                    <span style={{ color: "#FFD700", fontWeight: 700 }}>+{expectedReward.toFixed(2)} PLHH</span>
+                  </div>
+                </div>
+                
+                <div className="p-4 rounded-lg flex items-start mb-8"
+                     style={{ background: "rgba(255,0,0,0.1)", border: "1px solid rgba(255,0,0,0.3)" }}>
+                  <AlertCircle className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0" style={{ color: "#ff6b6b" }}/>
+                  <p className="text-sm" style={{ color: "#ff6b6b" }}>
+                    Early withdrawal will incur penalties ranging from 20-40% of rewards depending on how early you withdraw.
+                  </p>
+                </div>
+                
+                <div className="flex gap-4 justify-center">
+                  <Button 
+                    onClick={handleCancelStaking} 
+                    variant="outline" 
+                    className="flex-1 h-12 font-semibold"
+                    style={{
+                      background: "transparent",
+                      color: "#FFD700",
+                      border: "2px solid rgba(255,215,0,0.3)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "rgba(255,215,0,0.1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "transparent";
+                    }}>
+                    Cancel
+                  </Button>
+                  
+                  <Button 
+                    onClick={handleConfirmStaking} 
+                    disabled={isProcessing} 
+                    className="flex-1 h-12 font-semibold flex items-center justify-center"
+                    style={{
+                      background: "linear-gradient(135deg, #FFD700, #FFA500)",
+                      color: "#000",
+                    }}>
+                    {isProcessing ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                        Processing...
+                      </>
+                    ) : (
+                      "Confirm Staking"
+                    )}
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </>
